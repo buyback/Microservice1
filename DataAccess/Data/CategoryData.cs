@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.Data;
-public class CategoryData
+public class CategoryData : ICategoryData
 {
     private readonly ISqlDataAccess _db;
 
@@ -28,6 +28,14 @@ public class CategoryData
         return results.FirstOrDefault();
     }
 
+    public Task InsertCategory(CategoryModel category) =>
+        _db.SaveData("dbo.spCategory_Insert", new { category.Name });
+
+    public Task UpdateCategory(CategoryModel category) =>
+        _db.SaveData("dbo.spCategory_Update", new { category });
+
+    public Task DeleteCategory(int categoryID) =>
+        _db.SaveData("dbo.spCategory_Delete", new { CategoryID = categoryID });
 
 
 }
