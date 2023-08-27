@@ -32,7 +32,7 @@ public class CategoryData : ICategoryData
         _db.SaveData("dbo.spCategory_Insert", new { category.Name });
 
     public Task UpdateCategory(CategoryModel category) =>
-        _db.SaveData("dbo.spCategory_Update", new { category });
+        _db.SaveData("dbo.spCategory_Update", new { CategoryID = category.CategoryID, Name = category.Name });
 
     public Task DeleteCategory(int categoryID) =>
         _db.SaveData("dbo.spCategory_Delete", new { CategoryID = categoryID });

@@ -1,11 +1,15 @@
-using MicroService1.Methods;
+using DataAccess.DbAccess;
+using MicroService1;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// dta: add DI
+builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+builder.Services.AddSingleton<ICategoryData, CategoryData>();
 
 var app = builder.Build();
 
@@ -16,7 +20,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// dta: not allowed user to use http
 app.UseHttpsRedirection();
 
-CategoryMethod category = new CategoryMethod("Test");
-app.MapGet("/testing", () => category);
+app.ConfigureApi();
+
+app.Run();
