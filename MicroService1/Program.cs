@@ -10,6 +10,17 @@ builder.Services.AddSwaggerGen();
 // dta: add DI
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddSingleton<ICategoryData, CategoryData>();
+builder.Services.AddSingleton<IItemData, ItemData>();
+
+builder.Services.AddCors();
+
+builder.Services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+{
+    //builder.WithOrigins("https://microservicemandiri.azurewebsites.net").AllowAnyMethod().AllowAnyHeader();
+    builder.WithOrigins("https://localhost:7010").AllowAnyMethod().AllowAnyHeader();
+}));
+
+builder.Services.AddMvcCore();
 
 var app = builder.Build();
 
@@ -19,6 +30,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
+
+app.UseCors("ApiCorsPolicy");
 
 // dta: not allowed user to use http
 app.UseHttpsRedirection();
