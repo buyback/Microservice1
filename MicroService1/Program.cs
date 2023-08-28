@@ -14,11 +14,11 @@ builder.Services.AddSingleton<ICategoryData, CategoryData>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 // dta: not allowed user to use http
 app.UseHttpsRedirection();

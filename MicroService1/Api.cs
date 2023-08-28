@@ -6,7 +6,7 @@ public static class Api
     {
         // dta: All of my API endpoint mapping
         app.MapGet("/Categories", GetCategories);
-        app.MapGet("/Categories/{id}", GetCategory);
+        app.MapGet("/Categories/{categoryID}", GetCategory);
         app.MapPost("/Categories", InsertCategory);
         app.MapPut("/Categories", UpdateCategory);
         app.MapDelete("/Categories", DeleteCategory);
